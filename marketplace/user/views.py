@@ -23,4 +23,4 @@ class Logout(LogoutView):
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'partials/profile.html'
+    template_name = 'profile.html'

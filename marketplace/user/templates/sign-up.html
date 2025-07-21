@@ -1,13 +1,52 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container">
-    <form method="post" class="form-container">
-        {% csrf_token %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="col-md-6">
+    <form method="post" class="p-4 shadow-4 rounded bg-white">
+      {% csrf_token %}
+
+      <div data-mdb-input-init class="form-outline mb-4">
         {{ form.username }}
+        <label class="form-label" for="username">Username</label>
+        {% if form.username.errors %}
+          <div class="text-danger small">{{ form.username.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
         {{ form.email }}
+        <label class="form-label" for="email">Email</label>
+        {% if form.email.errors %}
+          <div class="text-danger small">{{ form.email.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
         {{ form.password1 }}
+        <label class="form-label" for="password1">Password</label>
+        {% if form.password1.errors %}
+          <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
         {{ form.password2 }}
-        <button type="submit">Submit</button>
+        <label class="form-label" for="password2">Confirm Password</label>
+        {% if form.password2.errors %}
+          <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+        Register
+      </button>
+
+      <div class="text-center">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+      </div>
     </form>
+  </div>
 </div>
+
 {% endblock %}
