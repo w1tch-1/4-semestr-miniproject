@@ -1,7 +1,8 @@
+from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from .models import User
+
 
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -23,19 +24,5 @@ class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({
-            'class': 'form-control w-100',
-            'id': 'username',
-        })
-        self.fields['email'].widget.attrs.update({
-            'class': 'form-control w-100',
-            'id': 'email',
-        })
-        self.fields['password1'].widget.attrs.update({
-            'class': 'form-control w-100',
-            'id': 'password1',
-        })
-        self.fields['password2'].widget.attrs.update({
-            'class': 'form-control w-100',
-            'id': 'password2',
-        })
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control w-100'})

@@ -2,13 +2,30 @@
 {% block content %}
 
 <div class="container mt-5">
-  <div class="card mx-auto" style="max-width: 400px;">
+  <div class="card mx-auto" style="max-width: auto;">
     <div class="card-body text-center">
+      <h1>{{ request.user_sellers.username }}</h1>
       <h1 class="card-title">{{ request.user.username }}</h1>
       <h3 class="card-subtitle text-muted">{{ request.user.email }}</h3>
+      <a href="/logout"><h1>Want to log-out?</h1></a>
     </div>
   </div>
 </div>
+
+<div class="container mt-2">
+  <div class="card mx-auto" style="max-width: auto;">
+    <div class="card-body text-center p-5">
+      <h1 class="mb-3 fw-bold ">My Offers</h1>
+      <hr class="my-3">
+      <img src="/static/img/offers.png" alt="Special Offers" class="img-fluid" style="width: 150px; max-width: 100%;">
+      <h2 class="mb-2 fs-4">🎁 Still have treasures in the basement?</h2>
+      <h4 class="text-muted mb-2 fs-5">Clear space and earn some cash!</h4>
+      <h5 class="mb-1 fs-6">Sell your old favorites for free – quick and easy.</h5>
+      <h5 class="mb-1 fs-6">Manage all your listings in one place.</h5>
+    </div>
+  </div>
+</div>
+
 
 
 {% endblock %}
