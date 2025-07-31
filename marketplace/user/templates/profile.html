@@ -1,8 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'styles/card-styles.css' %}">
 
 <div class="container mt-5">
-  <div class="card mx-auto" style="max-width: auto;">
+  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
     <div class="card-body text-center">
       <h1>{{ request.user_sellers.username }}</h1>
       <h1 class="card-title">{{ request.user.username }}</h1>
@@ -13,19 +15,40 @@
 </div>
 
 <div class="container mt-2">
-  <div class="card mx-auto" style="max-width: auto;">
+  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
     <div class="card-body text-center p-5">
       <h1 class="mb-3 fw-bold ">My Offers</h1>
       <hr class="my-3">
+      {% if user_listings %}
+      <div class="container">
+        <div class="row">
+          {% for listing in user_listings %}
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+              <div class="tilted-card-container">
+                <div class="tilted-card" data-title="{{ listing.title }}">
+                  <a href="{% url 'listing-detail' listing.id %}" class="text-decoration-none">
+                    <img src="{{ listing.pictures.url }}" alt="listing img" class="img-fluid">
+                    <div class="overlay">{{ listing.title }}</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
       <img src="/static/img/offers.png" alt="Special Offers" class="img-fluid" style="width: 150px; max-width: 100%;">
       <h2 class="mb-2 fs-4">🎁 Still have treasures in the basement?</h2>
       <h4 class="text-muted mb-2 fs-5">Clear space and earn some cash!</h4>
       <h5 class="mb-1 fs-6">Sell your old favorites for free – quick and easy.</h5>
-      <h5 class="mb-1 fs-6">Manage all your listings in one place.</h5>
+      <h5 class="mb-3 fs-6">Manage all your listings in one place.</h5>
+    {% endif %}
+      <a href="/listing-create" type="button" class="btn shadow-lg fw-bold fs-4 " style="background-color: #1E1E2F; color: #E5E5E5;">
+        Place an ad
+      </a>
+
     </div>
   </div>
 </div>
-
-
-
+<script src="{% static 'js/card.js' %}"></script>
 {% endblock %}

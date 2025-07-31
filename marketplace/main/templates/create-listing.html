@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      {{ form.title.label_tag }} {{ form.title }}
+    </div>
+    <div class="mb-3">
+      {{ form.price.label_tag }} {{ form.price }}
+    </div>
+    <div class="mb-3">
+      {{ form.type_of_price.label_tag }} {{ form.type_of_price }}
+    </div>
+    <div class="mb-3">
+      {{ form.description.label_tag }} {{ form.description }}
+    </div>
+    <div class="mb-3">
+      {{ form.pictures.label_tag }} {{ form.pictures }}
+    </div>
+    <div class="mb-3">
+      {{ form.telephone_number.label_tag }} {{ form.telephone_number }}
+    </div>
+
+   <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from main.choices import PriceTypeChoices
+from user.models import User
 
 
 class Listing(models.Model):
@@ -11,6 +12,6 @@ class Listing(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     type_of_price = models.CharField(max_length=20, choices=PriceTypeChoices, default='none-type-of-price')
     description = models.TextField()
-    pictures = models.ImageField(upload_to='static/listing_images/')
-    name = models.CharField(max_length=150)
+    pictures = models.ImageField(upload_to='listing_images/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     telephone_number = models.CharField(max_length=100)

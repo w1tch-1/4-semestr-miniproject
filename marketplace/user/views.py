@@ -1,8 +1,8 @@
 from django.views.generic.edit import CreateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, TemplateView
 from .forms import UserRegisterForm, UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.base import TemplateView
+from main.models import Listing
 
 
 class RegisterUser(CreateView):
@@ -24,3 +24,9 @@ class Logout(LogoutView):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_listings'] = Listing.objects.filter(user=self.request.user)
+        return context
+
