@@ -7,35 +7,31 @@
       {% csrf_token %}
 
       <div data-mdb-input-init class="form-outline mb-4">
-        {{ form.username }}
-        <label class="form-label" for="username">Username</label>
-        {% if form.username.errors %}
-          <div class="text-danger small">{{ form.username.errors.0 }}</div>
+        {{ form.seller_fullname }}
+        <label class="form-label" for="username">Seller name</label>
+        {% if form.seller_fullname.errors %}
+          <div class="text-danger small">{{ form.seller_fullname.errors.0 }}</div>
         {% endif %}
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        {{ form.email }}
+        {{ form.seller_company_name }}
+        <label class="form-label" for="password1">Company name</label>
+        {% if form.seller_company_name.errors %}
+          <div class="text-danger small">{{ form.seller_company_name.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div data-mdb-input-init class="form-outline mb-4">
+        {{ form.seller_email }}
         <label class="form-label" for="email">Email</label>
-        {% if form.email.errors %}
-          <div class="text-danger small">{{ form.email.errors.0 }}</div>
+        {% if form.seller_email.errors %}
+          <div class="text-danger small">{{ form.seller_email.errors.0 }}</div>
         {% endif %}
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        {{ form.password1 }}
-        <label class="form-label" for="password1">Password</label>
-        {% if form.password1.errors %}
-          <div class="text-danger small">{{ form.password1.errors.0 }}</div>
-        {% endif %}
-      </div>
-
-      <div data-mdb-input-init class="form-outline mb-4">
-        {{ form.password2 }}
-        <label class="form-label" for="password2">Confirm Password</label>
-        {% if form.password2.errors %}
-          <div class="text-danger small">{{ form.password2.errors.0 }}</div>
-        {% endif %}
+        {{ form.is_seller }}
       </div>
 
       <button type="submit" class="btn btn-primary btn-block w-100 mb-4">

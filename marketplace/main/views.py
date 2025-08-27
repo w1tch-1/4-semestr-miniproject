@@ -1,14 +1,17 @@
-from django.views.generic.base import TemplateView
+from django_filters.views import FilterView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 
 from .models import Listing
 from main.forms import ListingCreationForm
 from django.urls import reverse_lazy
 
 
-class Index(TemplateView):
+class Index(ListView, FilterView):
+    model = Listing
     template_name = 'index.html'
+    context_object_name = 'listing'
 
 
 class ListingDetailView(DetailView):

@@ -1,8 +1,9 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView, TemplateView
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, SellerRegistrationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from main.models import Listing
+from .models import User
 
 
 class RegisterUser(CreateView):
@@ -17,12 +18,8 @@ class LoginUser(LoginView):
     redirect_authenticated_user = True
 
 
-class Logout(LogoutView):
+class ProfileView(LoginRequiredMixin, LogoutView,  TemplateView):
     http_method_names = ['post', 'get']
-    template_name = 'logout.html'
-
-
-class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
@@ -30,3 +27,9 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['user_listings'] = Listing.objects.filter(user=self.request.user)
         return context
 
+
+class SellerRegistrationView(UpdateView):
+    model = User
+    template_name = 'seller_registration.html'
+    success_url = '/'
+    form_class = SellerRegistrationForm

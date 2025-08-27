@@ -4,21 +4,57 @@
 <link rel="stylesheet" href="{% static 'styles/card-styles.css' %}">
 
 <div class="container mt-5">
-  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
-    <div class="card-body text-center">
-      <h1>{{ request.user_sellers.username }}</h1>
-      <h1 class="card-title">{{ request.user.username }}</h1>
-      <h3 class="card-subtitle text-muted">{{ request.user.email }}</h3>
-      <a href="/logout"><h1>Want to log-out?</h1></a>
+  <div class="card mx-auto shadow-lg" style="max-width: auto; background-color: #2D9CDB;">
+    <div class="card-body text-center text-white">
+      {% if request.user.is_seller %}
+        <h2 class="card-title fw-bold mb-2">{{ request.user.seller_fullname }}</h2>
+        <h4 class="card-title mb-3">{{ request.user.seller_company_name }}</h4>
+        <p class="card-subtitle text-light small mb-4">{{ request.user.seller_email }}</p>
+      {% else %}
+        <h2 class="card-title fw-bold mb-2">{{ request.user.username }}</h2>
+        <p class="card-subtitle text-light small mb-4">{{ request.user.email }}</p>
+        <a href="{% url 'user:seller-registration' request.user.id %}" class="btn btn-outline-light btn-sm">
+          Seller registration
+        </a>
+      {% endif %}
+
+      <div class="mt-4">
+        <button type="button" class="btn btn-light btn-sm fw-semibold"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Log out
+        </button>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sure to logout?</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 
 <div class="container mt-2">
   <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
     <div class="card-body text-center p-5">
       <h1 class="mb-3 fw-bold ">My Offers</h1>
       <hr class="my-3">
+      {% if request.user.is_seller %}
       {% if user_listings %}
       <div class="container">
         <div class="row">
@@ -36,16 +72,19 @@
           {% endfor %}
         </div>
       </div>
-    {% else %}
-      <img src="/static/img/offers.png" alt="Special Offers" class="img-fluid" style="width: 150px; max-width: 100%;">
-      <h2 class="mb-2 fs-4">🎁 Still have treasures in the basement?</h2>
-      <h4 class="text-muted mb-2 fs-5">Clear space and earn some cash!</h4>
-      <h5 class="mb-1 fs-6">Sell your old favorites for free – quick and easy.</h5>
-      <h5 class="mb-3 fs-6">Manage all your listings in one place.</h5>
-    {% endif %}
+      {% else %}
+        <img src="/static/img/offers.png" alt="Special Offers" class="img-fluid" style="width: 150px; max-width: 100%;">
+        <h2 class="mb-2 fs-4">🎁 Still have treasures in the basement?</h2>
+        <h4 class="text-muted mb-2 fs-5">Clear space and earn some cash!</h4>
+        <h5 class="mb-1 fs-6">Sell your old favorites for free – quick and easy.</h5>
+        <h5 class="mb-3 fs-6">Manage all your listings in one place.</h5>
+      {% endif %}
       <a href="/listing-create" type="button" class="btn shadow-lg fw-bold fs-4 " style="background-color: #1E1E2F; color: #E5E5E5;">
         Place an ad
       </a>
+      {% else %}
+        <h2 class="mb-2 fs-4">Register a seller account to make your offers.</h2>
+      {% endif %}
 
     </div>
   </div>
