@@ -2,86 +2,106 @@
 {% load static %}
 {% block content %}
 
-<button class="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterSidebar">
-  Filters
-</button>
+<div class="page-wrapper">
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="filterSidebar">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Filter Products</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
+  <div id="filterSidebar" class="closed p-3 border rounded bg-light">
+  <h5 class="fw-bold mb-3">Filter Listing</h5>
+  <hr>
 
+  <form
+    hx-get="{% url 'index' %}"
+    hx-target="#listingList"
+    hx-swap="outerHtml"
+  >
     <div class="mb-3">
       <label for="searchInput" class="form-label">Search</label>
-      <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+      <input
+        type="text"
+        id="searchInput"
+        name="search"
+        class="form-control"
+        placeholder="Search products..."
+        hx-get="{% url 'index' %}"
+        hx-target="#listingList"
+        hx-swap="outerHtml"
+        hx-trigger="keyup changed delay:500ms"
+        hx-include="closest form"
+      >
     </div>
 
     <div class="mb-3">
       <label class="form-label">Category</label>
-      <select class="form-select">
-        <option selected>All</option>
-        <option>Electronics</option>
-        <option>Clothing</option>
-        <option>Home</option>
-        <option>Sports</option>
+      <select class="form-select" name="category" hx-get="{% url 'index' %}" hx-target="#listingList" hx-swap="outerHtml" hx-trigger="change" hx-include="closest form">
+        <option value="">All</option>
+        {% for cat in categories %}
+          <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
       </select>
     </div>
 
     <div class="mb-3">
-      <label for="priceRange" class="form-label">Price Range</label>
-      <input type="range" class="form-range" min="0" max="1000" step="10" id="priceRange">
+      <label for="priceRange" class="form-label">Price Range: <span id="priceValue">0</span></label>
+      <input
+        type="range"
+        class="form-range"
+        min="0"
+        max="50000"
+        step="500"
+        id="priceRange"
+        name="price_range"
+        hx-get="{% url 'index' %}"
+        hx-target="#listingList"
+        hx-swap="outerHtml"
+        hx-trigger="change"
+        hx-include="closest form"
+      >
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Brands</label>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="brand1">
-        <label class="form-check-label" for="brand1">Brand A</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="brand2">
-        <label class="form-check-label" for="brand2">Brand B</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="brand3">
-        <label class="form-check-label" for="brand3">Brand C</label>
-      </div>
-    </div>
+    <input type="hidden" name="is_filter" value="1">
 
-    <button class="btn btn-success w-100">Apply Filters</button>
-  </div>
+    <button type="submit" class="btn btn-success w-100">Apply Filters</button>
+  </form>
 </div>
 
-<div class="container my-4">
-  <div class="card bg-primary text-white shadow-lg border-0">
-    <div class="card-body text-center p-5">
-      <h1 class="fw-bold">PRODUCTS</h1>
-      <hr class="border-light opacity-75">
 
-      <div class="row mt-4 g-4">
-        {% for listings in listing %}
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100 shadow-sm border-0">
-              <a class="text-decoration-none" href="{% url 'listing-detail' listings.id %}">
-                <div class="ratio ratio-4x3">
-                  <img src="{{ listings.pictures.url }}"
-                       alt="{{ listings.title }}"
-                       class="card-img-top object-fit-cover">
+  <div id="mainContent">
+    <button id="toggleSidebar" class="mb-3">☰ Filters</button>
+
+    <div class="card bg-primary text-white shadow-lg border-0">
+      <div class="card-body text-center p-5">
+        <h1 class="fw-bold">PRODUCTS</h1>
+        <hr class="border-light opacity-75">
+
+        <div id="listingList" class="row mt-4 g-4">
+          {% block listing %}
+            {% for listings in listing %}
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                  <a class="text-decoration-none" href="{% url 'listing-detail' listings.id %}">
+                    <div class="ratio ratio-4x3">
+                      <img src="{{ listings.pictures.url }}"
+                           alt="{{ listings.title }}"
+                           class="card-img-top object-fit-cover">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title fw-semibold text-dark">{{ listings.title }}</h5>
+                        <h6 class="card-title fw-semibold text-dark">{{ listings.price }}$</h6>
+                    </div>
+                  </a>
                 </div>
-                <div class="card-body d-flex flex-column text-center">
-                    <h5 class="card-title fw-semibold text-dark">{{ listings.title }}</h5>
-                    <h6 class="card-title fw-semibold text-dark">{{ listings.price }}$</h6>
-                </div>
-              </a>
-            </div>
-          </div>
-        {% endfor %}
+              </div>
+            {% endfor %}
+          {% endblock %}
+        </div>
+
       </div>
-
     </div>
   </div>
+
 </div>
 
+<script src="{% static 'js/sidebar.js' %}"></script>
+
+<link rel="stylesheet" href="{% static 'styles/sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'styles/main-page.css' %}">
 {% endblock %}

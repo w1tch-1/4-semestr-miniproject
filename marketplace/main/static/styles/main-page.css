@@ -1,0 +1,91 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f6f8;
+  color: #212529;
+}
+
+#filterSidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  border-radius: 0 1rem 1rem 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+#filterSidebar h5 {
+  font-size: 1.1rem;
+  color: #0d6efd;
+}
+
+#filterSidebar hr {
+  margin: 0.75rem 0 1.25rem;
+}
+
+#filterSidebar .form-label {
+  font-weight: 600;
+  color: #495057;
+}
+
+#filterSidebar .form-control,
+#filterSidebar .form-select {
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+#filterSidebar .form-control:focus,
+#filterSidebar .form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25);
+}
+
+#mainContent .card.bg-primary {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  border-radius: 1rem;
+}
+
+.card.h-100 {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.h-100:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+  border-bottom: 1px solid #f1f3f5;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-body h5 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-body h6 {
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+#toggleSidebar {
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  box-shadow: 0 4px 8px rgba(13,110,253,0.2);
+}
+
+@media (max-width: 991px) {
+  #mainContent .card.bg-primary {
+    padding: 2rem 1rem;
+  }
+
+  #filterSidebar {
+    border-radius: 0;
+  }
+}

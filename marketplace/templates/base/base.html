@@ -30,15 +30,15 @@
                 {% if request.user.is_authenticated %}
 
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/registration">registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">registration</a></li>
                 {% endif %}
                 </ul>
             <div class="d-flex align-items-center text-white">
                 {% if request.user.is_authenticated %}
                     <a class="nav-link" href="/profile"><span class="me-2">{{ request.user.username }}</span></a>
                 {% else %}
-                    <a class="btn btn-outline-light" href="login/">Log In</a>
+                    <a class="btn btn-outline-light" href="{% url 'account_login' %}">Log In</a>
                 {% endif %}
             </div>
             </div>

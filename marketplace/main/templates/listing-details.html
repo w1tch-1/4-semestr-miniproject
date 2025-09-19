@@ -1,9 +1,9 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block content %}
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Product Images -->
         <div class="col-md-6 mb-4">
             <img src="{{ listing.pictures.url }}" alt="listing img" class="img-fluid">
             <div class="d-flex justify-content-between">
@@ -11,14 +11,13 @@
             </div>
         </div>
 
-        <!-- Product Details -->
         <div class="col-md-6">
             <h2 class="mb-3">{{ listing.title }}</h2>
             <div class="mb-3">
                 <span class="h4 me-2">{{ listing.price }}$</span>
             </div>
             <p class="mb-4">{{ listing.description }}</p>
-            <button class="btn btn-primary btn-lg mb-3 me-2">
+            <button type="button" id="orderProductModal" class="btn btn-primary btn-lg mb-3 me-2" data-url="{% url 'listing-order' listing.id %}" data-bs-toggle="modal" data-bs-target="#orderModal">
                 <i class="bi bi-cart-plus"></i> Add to Cart
             </button>
             <button class="btn btn-outline-secondary btn-lg mb-3">
@@ -30,12 +29,50 @@
     </div>
 </div>
 
-<script>
-    function changeImage(event, src) {
-        document.getElementById('mainImage').src = src;
-        document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
-        event.target.classList.add('active');
-    }
-</script>
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="orderModalLabel">Order {{ listing.title }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body" id="orderModalBody">
+        <form method="post" action="{% url 'listing-order' listing.id %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Order</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="productResponses">
+    {% block responses %}
+        <div hx-get="{% url 'product-responses' listing.id %}"
+             hx-trigger="load"
+             hx-target="this">
+        </div>
+
+        <select name="sortResponsesBy"
+                hx-get="{{ request.path }}"
+                hx-trigger="change"
+                hx-target="#responsesList"
+                hx-include="this">
+            <option value="newest">Newest first</option>
+            <option value="latest">Latest first</option>
+        </select>
+
+        <div id="responsesList">
+            {% block responses_list %}
+                {% for response in responses %}
+                    <h4>{{ response.text }}</h4>
+                {% endfor %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+</div>
 
 {% endblock %}

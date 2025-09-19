@@ -1,58 +1,101 @@
 {% extends 'base/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
 {% block content %}
+<div class="container py-5" style="max-width: 700px;">
+    <div class="card shadow-sm" style="border-radius: 12px;">
+        <div class="card-body">
+            <h3 class="mb-4 text-center fw-bold" style="color:#C7FF00;">Create Listing</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
+                <h5 class="mb-3 fw-semibold">Anzeigendetails</h5>
+                <div class="mb-3">
+                    {{ form.category.label_tag }}
+                    {{ form.category|add_class:"form-select" }}
+                    {{ form.category.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.sub_category.label_tag }}
+                    {{ form.sub_category|add_class:"form-select" }}
+                    {{ form.sub_category.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.types.label_tag }}
+                    {{ form.types|add_class:"form-select" }}
+                    {{ form.types.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.title.label_tag }}
+                    {{ form.title|add_class:"form-control" }}
+                    {{ form.title.errors }}
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        {{ form.price.label_tag }}
+                        {{ form.price|add_class:"form-control" }}
+                        {{ form.price.errors }}
+                    </div>
+                    <div class="col">
+                        {{ form.type_of_price.label_tag }}
+                        {{ form.type_of_price|add_class:"form-select" }}
+                        {{ form.type_of_price.errors }}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ form.description.label_tag }}
+                    {{ form.description|add_class:"form-control" }}
+                    {{ form.description.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.pictures.label_tag }}
+                    {{ form.pictures|add_class:"form-control" }}
+                    {{ form.pictures.errors }}
+                </div>
 
-    <div class="mb-3">
-      {{ form.category.label_tag }}
-      {{ form.category }}
-      {{ form.category.errors }}
-    </div>
-    <div class="mb-3">
-      {{ form.sub_category.label_tag }}
-      {{ form.sub_category }}
-      {{ form.sub_category.errors }}
-    </div>
-    <div class="mb-3">
-      {{ form.types.label_tag }}
-      {{ form.types }}
-      {{ form.types.errors }}
-    </div>
-    <div class="mb-3">
-      {{ form.title.label_tag }}
-      {{ form.title }}
-      {{ form.title.error }}
-    </div>
-    <div class="mb-3">
-      {{ form.price.label_tag }}
-      {{ form.price }}
-      {{ form.price.error }}
-    </div>
-    <div class="mb-3">
-      {{ form.type_of_price.label_tag }}
-      {{ form.type_of_price }}
-      {{ form.type_of_price.error }}
-    </div>
-    <div class="mb-3">
-      {{ form.description.label_tag }}
-      {{ form.description }}
-      {{ form.description.error }}
-    </div>
-    <div class="mb-3">
-      {{ form.pictures.label_tag }}
-      {{ form.pictures }}
-      {{ form.pictures.error }}
-    </div>
-    <div class="mb-3">
-      {{ form.telephone_number.label_tag }}
-      {{ form.telephone_number }}
-      {{ form.telephone_number.error }}
-    </div>
+                <h5 class="mt-4 mb-3 fw-semibold">Ort</h5>
+                <div class="row mb-3">
+                    <div class="col-4">
+                        {{ form.postal_code.label_tag }}
+                        {{ form.postal_code|add_class:"form-control" }}
+                        {{ form.postal_code.errors }}
+                    </div>
+                    <div class="col-8">
+                        {{ form.city.label_tag }}
+                        {{ form.city|add_class:"form-control" }}
+                        {{ form.city.errors }}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ form.street.label_tag }}
+                    {{ form.street|add_class:"form-control" }}
+                    {{ form.street.errors }}
+                </div>
 
-   <button type="submit" class="btn btn-primary">Submit</button>
+                <h5 class="mt-4 mb-3 fw-semibold">Deine Angaben</h5>
+                <div class="mb-3">
+                    {{ form.name.label_tag }}
+                    {{ form.name|add_class:"form-control" }}
+                    {{ form.name.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.telephone_number.label_tag }}
+                    {{ form.telephone_number|add_class:"form-control" }}
+                    {{ form.telephone_number.errors }}
+                </div>
+                <div class="mb-3">
+                    {{ form.legal_info.label_tag }}
+                    {{ form.legal_info|add_class:"form-control" }}
+                    {{ form.legal_info.errors }}
+                </div>
 
-</form>
-
+                <button type="submit" class="btn w-100 py-2 fw-semibold" style="background-color:#C7FF00; color:#000;">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/select.js' %}"></script>
 {% endblock %}

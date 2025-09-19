@@ -25,7 +25,6 @@
         </button>
       </div>
 
-      <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -38,7 +37,7 @@
             <div class="modal-body">
               <form method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Sure to logout?</button>
+                <button type="submit" name="logout" class="btn btn-danger">Sure to logout?</button>
               </form>
             </div>
           </div>

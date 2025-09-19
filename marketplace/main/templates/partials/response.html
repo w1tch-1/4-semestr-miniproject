@@ -1,0 +1,17 @@
+<form hx-post="{{ request.path }}"
+      hx-target="#responsesList"
+      hx-swap="innerHTML">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>
+
+<div id="responsesList">
+    {% block responses_list %}
+        {% for response in responses %}
+            <h4>{{ response.text }}</h4>
+        {% empty %}
+            <p>No responses yet.</p>
+        {% endfor %}
+    {% endblock %}
+</div>
