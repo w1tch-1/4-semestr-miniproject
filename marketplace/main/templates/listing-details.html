@@ -3,76 +3,85 @@
 {% block content %}
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <img src="{{ listing.pictures.url }}" alt="listing img" class="img-fluid">
-            <div class="d-flex justify-content-between">
-
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <img src="{{ listing.pictures.url }}" alt="Listing image" class="card-img-top img-fluid">
             </div>
         </div>
 
         <div class="col-md-6">
-            <h2 class="mb-3">{{ listing.title }}</h2>
-            <div class="mb-3">
-                <span class="h4 me-2">{{ listing.price }}$</span>
-            </div>
-            <p class="mb-4">{{ listing.description }}</p>
-            <button type="button" id="orderProductModal" class="btn btn-primary btn-lg mb-3 me-2" data-url="{% url 'listing-order' listing.id %}" data-bs-toggle="modal" data-bs-target="#orderModal">
-                <i class="bi bi-cart-plus"></i> Add to Cart
-            </button>
-            <button class="btn btn-outline-secondary btn-lg mb-3">
-                <i class="bi bi-heart"></i> Add to Wishlist
-            </button>
-            <div class="mt-4">
+            <div class="card shadow-sm p-4">
+                <h2 class="card-title mb-3">{{ listing.title }}</h2>
+                <div class="mb-3">
+                    <span class="badge bg-success fs-5">{{ listing.price }}$</span>
+                </div>
+                <p class="card-text mb-4">{{ listing.description }}</p>
+
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button type="button" id="orderProductModal" class="btn btn-primary btn-lg"
+                            data-url="{% url 'listing-order' listing.id %}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderModal">
+                        <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                    </button>
+
+                    <button class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-heart me-1"></i> Add to Wishlist
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="orderModalLabel">Order {{ listing.title }}</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body" id="orderModalBody">
-        <form method="post" action="{% url 'listing-order' listing.id %}">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit" class="btn btn-primary">Order</button>
-        </form>
-      </div>
-
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="orderModalLabel">Order {{ listing.title }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'listing-order' listing.id %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success w-100">Place Order</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<div id="productResponses">
-    {% block responses %}
-        <div hx-get="{% url 'product-responses' listing.id %}"
-             hx-trigger="load"
-             hx-target="this">
-        </div>
+<div class="container mt-5" id="productResponses">
+    <h3 class="mb-3">Responses</h3>
 
-        <select name="sortResponsesBy"
-                hx-get="{{ request.path }}"
-                hx-trigger="change"
-                hx-target="#responsesList"
-                hx-include="this">
-            <option value="newest">Newest first</option>
-            <option value="latest">Latest first</option>
-        </select>
+    <div id="productResponses" class="mt-5">
+        {% block responses %}
+            <div hx-get="{% url 'product-responses' listing.id %}"
+                hx-trigger="load"
+                hx-target="this">
+            </div>
 
-        <div id="responsesList">
-            {% block responses_list %}
-                {% for response in responses %}
-                    <h4>{{ response.text }}</h4>
-                {% endfor %}
-            {% endblock %}
-        </div>
-    {% endblock %}
+            <div id="responsesList" class="list-group">
+                {% block responses_list %}
+                    {% for response in responses %}
+                        <div class="list-group-item list-group-item-action shadow-sm mb-3 rounded">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <p class="mb-1">{{ response.text }}</p>
+                                <small class="text-muted">{{ response.created_at|date:"M d, Y H:i" }}</small>
+                            </div>
+                            {% if response.user %}
+                                <span class="badge bg-primary mt-2">{{ response.user.username }}</span>
+                            {% endif %}
+                        </div>
+                            {% endfor %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+
 </div>
 
 {% endblock %}

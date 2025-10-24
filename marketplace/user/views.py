@@ -1,24 +1,12 @@
-from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.views import LoginView, LogoutView, TemplateView
-from .forms import UserRegisterForm, UserLoginForm, SellerRegistrationForm
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.views import LogoutView, TemplateView
+from .forms import SellerRegistrationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from main.models import Listing
 from .models import User
 
 
-class RegisterUser(CreateView):
-    template_name = 'sign-up.html'
-    form_class = UserRegisterForm
-    success_url = '/'
-
-
-class LoginUser(LoginView):
-    template_name = 'login.html'
-    form_class = UserLoginForm
-    redirect_authenticated_user = True
-
-
-class ProfileView(LoginRequiredMixin, LogoutView,  TemplateView):
+class ProfileView(LoginRequiredMixin,  TemplateView):
     http_method_names = ['post', 'get']
     template_name = 'profile.html'
 

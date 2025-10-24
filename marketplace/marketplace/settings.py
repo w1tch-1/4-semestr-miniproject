@@ -144,9 +144,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'user.User'
 
-LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/account/login'
+LOGIN_URL = '/account/login'
+LOGIN_REDIRECT_URL = '/profile/'
+LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -162,4 +162,4 @@ EMAIL_HOST_PASSWORD = 'vehpmarzcvttuzjy'
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'none'

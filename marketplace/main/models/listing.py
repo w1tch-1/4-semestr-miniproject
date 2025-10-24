@@ -10,7 +10,7 @@ class Listing(models.Model):
 
     title = models.CharField(max_length=300)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    type_of_price = models.CharField(max_length=20, choices=PriceTypeChoices, default='none-type-of-price')
+    type_of_price = models.CharField(max_length=20, choices=PriceTypeChoices.choices, default=PriceTypeChoices.FIXED_PRICE)
     description = models.TextField()
     pictures = models.ImageField(upload_to='listing_images/')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
