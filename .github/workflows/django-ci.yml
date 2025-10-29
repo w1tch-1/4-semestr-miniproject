@@ -40,7 +40,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run MIgrations
+        working-directory: marketplace
         run: python manage.py migrate
 
       - name: Testing
+        working-directory: marketplace
         run: python manage.py test
