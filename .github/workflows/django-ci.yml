@@ -44,5 +44,5 @@ jobs:
         run: python manage.py migrate
 
       - name: Testing
-        working-directory: marketplace
+        working-directory: marketplace/listing_manage
         run: python manage.py test
