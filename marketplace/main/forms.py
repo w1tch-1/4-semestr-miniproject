@@ -69,6 +69,7 @@ class OrderCreateForm(forms.ModelForm):
         self.listing = kwargs.pop('listing')
         super().__init__(*args, **kwargs)
         self.instance.user = self.user
+        self.instance.title = self.listing.title
         self.instance.price = self.listing.price
 
     def save(self, commit=True):

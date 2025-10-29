@@ -19,5 +19,5 @@ class ProfileView(LoginRequiredMixin,  TemplateView):
 class SellerRegistrationView(UpdateView):
     model = User
     template_name = 'seller_registration.html'
-    success_url = '/'
+    success_url = '/profile'
     form_class = SellerRegistrationForm
