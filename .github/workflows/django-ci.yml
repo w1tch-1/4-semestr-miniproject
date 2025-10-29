@@ -28,16 +28,19 @@ jobs:
       POSTGRES_PORT: 5432
 
     steps:
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Checkout code
+        uses: actions/chechout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install deps
-      run: pip install -r marketplace/requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
 
-    - name: Run MIgrations
-      run: python manage.py migrate
+      - name: Run MIgrations
+        run: python manage.py migrate
 
-    - name: Testing
-      run: python manage.py test
+      - name: Testing
+        run: python manage.py test
