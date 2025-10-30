@@ -18,35 +18,6 @@
         </a>
       {% endif %}
 
-      <div class="mt-4">
-        <button type="button" class="btn btn-light btn-sm fw-semibold"
-                data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Log out
-        </button>
-      </div>
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form method="post">
-                {% csrf_token %}
-                <button type="submit" name="logout" class="btn btn-danger">Sure to logout?</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <div class="container mt-2">
   <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
