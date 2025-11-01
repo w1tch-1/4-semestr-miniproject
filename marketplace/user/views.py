@@ -1,5 +1,5 @@
 from django.views.generic.edit import UpdateView
-from django.contrib.auth.views import LogoutView, TemplateView
+from django.contrib.auth.views import TemplateView
 from .forms import SellerRegistrationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from main.models import Listing

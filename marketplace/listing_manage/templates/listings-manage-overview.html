@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for listing in user_listings %}
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+            <div class="tilted-card-container">
+            <div class="tilted-card" data-title="{{ listing.title }}">
+                <a href="{% url 'listing-manage' listing.id %}" class="text-decoration-none">
+                <img src="{{ listing.pictures.url }}" alt="listing img" class="img-fluid">
+                <div class="overlay">{{ listing.title }}</div>
+                </a>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
