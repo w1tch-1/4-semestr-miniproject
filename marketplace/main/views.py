@@ -1,7 +1,6 @@
 from django_filters.views import FilterView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
 
 from .models import Listing, Response, Category
 from main.forms import ListingCreationForm, ResponseForm, OrderCreateForm

@@ -1,5 +1,6 @@
 from django.contrib.auth.views import TemplateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView, DeleteView
 from main.models import Listing
 
 class ListingsManageOverview(TemplateView):
@@ -12,7 +13,30 @@ class ListingsManageOverview(TemplateView):
         return context
     
 
-class ListingManage(DetailView):
+class ListingManageView(DetailView):
     model = Listing
     template_name = 'listing_manage.html'
     context_object_name = 'listing'
+
+
+class ListingUpdateView(UpdateView):
+    model = Listing
+    fields = [
+            'category',
+            'sub_category',
+            'types',
+            'title',
+            'price',
+            'type_of_price',
+            'description',
+            'pictures',
+            'telephone_number'
+        ]
+    success_url = '/'
+    template_name = 'listing_manage.html'
+
+
+class ListingDeleteView(DeleteView):
+    model = Listing
+    success_url = '/'
+    template_name = 'listing_manage.html'
