@@ -59,5 +59,21 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-2">
+  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
+    <div class="card-body text-center p-5">
+      <h1 class="mb-3 fw-bold ">My Whishlist</h1>
+      <hr class="my-3">
+      <div class="container">
+        <div class="row">
+          {% for item in cart_items %}
+            <h1>{{ item.listing.title }}</h1>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="{% static 'js/card.js' %}"></script>
 {% endblock %}

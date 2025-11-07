@@ -20,13 +20,14 @@
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
                     <button type="button" id="orderProductModal" class="btn btn-primary btn-lg"
-                            data-url="{% url 'listing-order' listing.id %}"
                             data-bs-toggle="modal"
                             data-bs-target="#orderModal">
                         <i class="bi bi-cart-plus me-1"></i> Add to Cart
                     </button>
-
-                    <a class="btn btn-outline-secondary btn-lg" href="{% url 'cart:add_to_cart' listing.id %}"><i class="bi bi-heart me-1"></i> Add to Wishlist</a>
+                    <form action="{% url 'cart:add_to_cart' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-lg" >Add to Wishlist</button>
+                    </form>
                 </div>
 
             </div>
