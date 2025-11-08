@@ -1,7 +1,7 @@
 from .models import CartItem
 from main.models import Listing
 from django.views.generic.detail import DetailView
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, CreateView
 from django.shortcuts import redirect, get_object_or_404
 
@@ -21,18 +21,10 @@ class CartAddView(CreateView):
         )
         cart_item.quantity += 1
         cart_item.save()
-        return redirect('cart:view_cart')
+        return redirect('user:profile')
     
 
 class CartRemoveView(DeleteView):
-    pass
-
-
-class CartView(TemplateView):
     model = CartItem
+    success_url = '/'
     template_name = 'profile.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['cart_items'] = CartItem.objects.filter(user=self.request.user)
-        return context
