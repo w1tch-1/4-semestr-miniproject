@@ -23,3 +23,6 @@ class SellerRegistrationView(UpdateView):
     template_name = 'seller_registration.html'
     success_url = '/profile'
     form_class = SellerRegistrationForm
+
+
+class UserProfileView():

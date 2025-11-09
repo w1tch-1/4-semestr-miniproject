@@ -1,26 +1,31 @@
-<form hx-post="{{ request.path }}"
-      hx-target="#responsesList"
-      hx-swap="innerHTML"
-      class="mb-4 p-3 border rounded shadow-sm bg-light">
-    {% csrf_token %}
-    <div class="mb-3">
-        {{ form }}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form hx-post="{{ request.path }}"
+            hx-target="#responsesList"
+            hx-swap="innerHTML"
+            class="mb-4 p-3 border rounded shadow-sm bg-light">
+          {% csrf_token %}
+          <div class="mb-3">
+              {{ form }}
+          </div>
+          <input type="submit" class="btn btn-primary">
+      </form>
     </div>
-    <input type="submit" class="btn btn-primary">
-</form>
 
-<div id="responsesList">
-    {% block responses_list %}
-        {% for response in responses %}
-            <div class="mb-3 p-3 border rounded shadow-sm bg-white">
-                <h4 class="mb-1">{{ response.text }}</h4>
-                {% if response.created_at %}
-                    <small class="text-muted">{{ response.created_at|date:"M d, Y H:i" }}</small>
-                {% endif %}
-                {% if response.user %}
-                    <span class="badge bg-primary ms-2">{{ response.user.username }}</span>
-                {% endif %}
-            </div>
-        {% endfor %}
-    {% endblock %}
+    <div class="col-md-6">
+      <div id="responsesList">
+          {% block responses_list %}
+              {% for response in responses %}
+                  <div class="mb-3 p-3 border rounded shadow-sm bg-white">
+                      <h4 class="mb-1">{{ response.text }}</h4>
+                      {% if response.user %}
+                          <span class="badge bg-primary ms-2">{{ response.user.username }}</span>
+                      {% endif %}
+                  </div>
+              {% endfor %}
+          {% endblock %}
+      </div>
+    </div>
+  </div>
 </div>

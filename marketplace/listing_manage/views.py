@@ -2,6 +2,7 @@ from django.contrib.auth.views import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from main.models import Listing
+from main.forms import ListingCreationForm
 
 class ListingsManageOverview(TemplateView):
     http_method_names = ['post', 'get']
@@ -12,11 +13,17 @@ class ListingsManageOverview(TemplateView):
         context['user_listings'] = Listing.objects.filter(user=self.request.user)
         return context
     
+    
 
 class ListingManageView(DetailView):
     model = Listing
     template_name = 'listing_manage.html'
     context_object_name = 'listing'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ListingCreationForm(instance=self.object)
+        return context
 
 
 class ListingUpdateView(UpdateView):

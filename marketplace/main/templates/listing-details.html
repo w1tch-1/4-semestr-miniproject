@@ -29,6 +29,30 @@
                         <button type="submit" class="btn btn-outline-secondary btn-lg" >Add to Wishlist</button>
                     </form>
                 </div>
+                
+                <div class="d-flex justify-content-center my-4">
+                    <div class="content text-center p-4 border rounded shadow-sm bg-light">
+                        <div class="ratings">
+                            <div class="d-flex justify-content-center align-items-baseline mb-2">
+                                <span class="product-rating fw-bold fs-3 text-warning">4.6</span>
+                                <span class="fs-5 text-secondary">/5</span>
+                            </div>
+
+                            <div class="stars text-warning mb-2">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            </div>
+
+
+                            <div class="rating-text text-muted small">
+                                <span>46 ratings & 15 reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -43,20 +67,24 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'listing-order' listing.id %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-success w-100">Place Order</button>
-                </form>
+                {% if request.user.is_authenticated %}
+                    <form method="post" action="{% url 'listing-order' listing.id %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success w-100">Place Order</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'account_login' %}">Pleas login to order somethink</a>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
-<div class="container mt-5" id="productResponses">
-    <h3 class="mb-3">Responses</h3>
+<div class="container mt-2" id="productResponses">
+    <h3 class="mb-2">Responses</h3>
 
-    <div id="productResponses" class="mt-5">
+    <div id="productResponses" class="mt-6">
         {% block responses %}
             <div hx-get="{% url 'product-responses' listing.id %}"
                 hx-trigger="load"
@@ -69,7 +97,6 @@
                         <div class="list-group-item list-group-item-action shadow-sm mb-3 rounded">
                             <div class="d-flex justify-content-between align-items-start">
                                 <p class="mb-1">{{ response.text }}</p>
-                                <small class="text-muted">{{ response.created_at|date:"M d, Y H:i" }}</small>
                             </div>
                             {% if response.user %}
                                 <span class="badge bg-primary mt-2">{{ response.user.username }}</span>

@@ -17,13 +17,12 @@
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</button>
             </div>
 
-            <!-- Delete form -->
             <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content border-0 shadow-lg rounded-4">
                     
                     <div class="modal-header bg-primary text-white rounded-top-4">
-                        <h1 class="modal-title fs-5" id="DeleteModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="DeleteModalLabel">Delete Listing</h1>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -39,23 +38,22 @@
                 </div>
             </div>
 
-            <!-- Update form -->
             <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content border-0 shadow-lg rounded-4">
                     
                     <div class="modal-header bg-primary text-white rounded-top-4">
-                        <h1 class="modal-title fs-5" id="UpdateModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="UpdateModalLabel">Update Listing</h1>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body p-4">
-                        <form method="post" enctype="multipart/form-data"> 
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="text-end mt-4">
-                            <input type="submit" value="Save" class="btn btn-primary px-4">
-                        </div>
+                        <form method="post" enctype="multipart/form-data" action="{% url 'listing-update' listing.id %}"> 
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="text-end mt-4">
+                                <input type="submit" value="Save" class="btn btn-primary px-4">
+                            </div>
                         </form> 
                     </div>
 
@@ -94,5 +92,5 @@
 
     </div>
 </div>
-
+<script src="{% static 'js/select.js' %}"></script>
 {% endblock %}

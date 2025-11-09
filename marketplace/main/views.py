@@ -103,7 +103,7 @@ class ResponseCreateView(CreateView):
 
 class OrderCreateView(CreateView):
     form_class = OrderCreateForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('user:profile')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

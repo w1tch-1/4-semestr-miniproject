@@ -36,6 +36,9 @@ class ListingCreationForm(forms.ModelForm):
                 self.fields['sub_category'].queryset = SubCategory.objects.filter(category_id=category_id)
             except (ValueError, TypeError):
                 pass
+        elif self.instance.pk:
+            if self.instance.category:
+                self.fields['sub_category'].queryset = SubCategory.objects.filter(category=self.instance.category)
 
         if 'sub_category' in self.data:
             try:
@@ -43,6 +46,9 @@ class ListingCreationForm(forms.ModelForm):
                 self.fields['types'].queryset = Types.objects.filter(sub_category_id=sub_category_id)
             except (ValueError, TypeError):
                 pass
+        elif self.instance.pk:
+            if self.instance.sub_category:
+                self.fields['types'].queryset = Types.objects.filter(sub_category=self.instance.sub_category)
 
 
 
