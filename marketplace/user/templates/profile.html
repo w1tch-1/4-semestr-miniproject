@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'styles/card-styles.css' %}">
 
 <div class="container mt-5">
-  <div class="card mx-auto shadow-lg" style="max-width: auto; background-color: #2D9CDB;">
+  <div class="card mx-auto shadow-lg bg-primary" style="max-width: auto;">
     <div class="card-body text-center text-white">
       {% if request.user.is_seller %}
         <h2 class="card-title fw-bold mb-2">{{ request.user.seller_fullname }}</h2>
@@ -20,7 +20,7 @@
 
 
 <div class="container mt-2">
-  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
+  <div class="card mx-auto" style="max-width: auto; ">
     <div class="card-body text-center p-5">
       <h1 class="mb-3 fw-bold ">My Offers</h1>
       <hr class="my-3">
@@ -61,7 +61,7 @@
 </div>
 
 <div class="container mt-2">
-  <div class="card mx-auto" style="max-width: auto; background-color: #2D9CDB;">
+  <div class="card mx-auto" style="max-width: auto;">
     <div class="card-body text-center p-5">
       <h1 class="mb-3 fw-bold ">My Whishlist</h1>
       <hr class="my-3">
@@ -71,7 +71,7 @@
             {% for item in cart_items %}
               <div class="col-md-4 col-sm-6">
                 <div class="card shadow-sm border-0 h-100">
-                  <img src="{{ item.listing.pictures.url }}" class="card-img-top" alt="{{ item.listing.title }}">
+                  <img src="{{ item.listing.pictures.url }}" class="card-img-top" alt="{{ item.listing.title }}" style="height: 250px; object-fit: cover;">
                   <div class="card-body">
                     <h5 class="card-title">{{ item.listing.title }}</h5>
                     {% if item.listing.price %}

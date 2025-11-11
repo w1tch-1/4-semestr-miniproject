@@ -12,6 +12,9 @@
 
         <div class="col-md-6">
             <div class="card shadow-sm p-4">
+                <div class="mb-3">
+                    <a href="{% url 'user:user-profile-view' listing.user.id %}"><span class="badge bg-warning fs-5">{{ listing.user.username }}</span></a>
+                </div>
                 <h2 class="card-title mb-3">{{ listing.title }}</h2>
                 <div class="mb-3">
                     <span class="badge bg-success fs-5">{{ listing.price }}$</span>
@@ -28,8 +31,9 @@
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-secondary btn-lg" >Add to Wishlist</button>
                     </form>
+
                 </div>
-                
+
                 <div class="d-flex justify-content-center my-4">
                     <div class="content text-center p-4 border rounded shadow-sm bg-light">
                         <div class="ratings">
@@ -68,6 +72,35 @@
             </div>
             <div class="modal-body">
                 {% if request.user.is_authenticated %}
+                    <ul class="nav nav-tabs mt-3" id="paymentTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="visa-tab" data-bs-toggle="tab" data-bs-target="#visa" type="button" role="tab" aria-controls="visa" aria-selected="true">
+                            <img src="https://i.imgur.com/sB4jftM.png" width="80" alt="Visa">
+                            </button>
+                        </li>
+                        </ul>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="paymentTabContent">
+                        <!-- Visa Tab -->
+                        <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
+                            <div class="mt-4 mx-4 text-center">
+                            <h5>Credit Card</h5>
+                            </div>
+                            <div class="form mt-3">
+                            <div class="mb-3">
+                                <input type="text" name="cardholder" class="form-control" placeholder="Cardholder Name" required>
+                            </div>
+                            <div class="mb-3 position-relative">
+                                <input type="text" name="cardnumber" class="form-control" placeholder="Card Number" required>
+                                <i class="fa fa-eye position-absolute top-50 end-0 translate-middle-y me-3"></i>
+                            </div>
+                            <div class="d-flex gap-2 mb-3">
+                                <input type="text" name="expiry" class="form-control" placeholder="Expiration Date" required>
+                                <input type="text" name="cvv" class="form-control" placeholder="CVV" required>
+                            </div>
+                            </div>
+                        </div>
                     <form method="post" action="{% url 'listing-order' listing.id %}">
                         {% csrf_token %}
                         {{ form.as_p }}
@@ -79,6 +112,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div class="container mt-2" id="productResponses">
