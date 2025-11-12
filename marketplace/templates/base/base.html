@@ -15,6 +15,9 @@
 
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
     {% block import %}{% endblock %}
 </head>
 <body class="text-dark min-vh-100" style="background-color: #0A2540;">
@@ -47,8 +50,8 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/profile">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
-                        <li><a class="dropdown-item" href="{% url 'account_email' %}">Manage Emails</a></li>
                         <li><a class="dropdown-item" href="{% url 'listing-manage-overview' %}">Manage Listings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'user:profile-edit' %}">Edit Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}">Logout</a></li>
                     </ul>

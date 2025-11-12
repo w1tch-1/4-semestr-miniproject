@@ -23,6 +23,8 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('cart.urls')),
     path('', include('listing_manage.urls')),
-    
+
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+
     path('account/', include('allauth.urls')),
 ]

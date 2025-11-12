@@ -7,9 +7,14 @@
   <div class="card mx-auto shadow-lg bg-primary" style="max-width: auto;">
     <div class="card-body text-center text-white">
       {% if request.user.is_seller %}
+        <img src="{{ user.profile_picture.url }}" class="rounded-circle" width="150">
         <h2 class="card-title fw-bold mb-2">{{ request.user.seller_fullname }}</h2>
         <h4 class="card-title mb-3">{{ request.user.seller_company_name }}</h4>
         <p class="card-subtitle text-light small mb-4">{{ request.user.seller_email }}</p>
+        <div class="d-flex justify-content-start gap-2 mb-3"></div>
+          <a href="{% url 'user:user-profile-view' user.id %}" class="btn btn-secondary">View</a>
+          <a type="button" class="btn btn-warning" href="{% url 'user:profile-edit'%}">Edit Profile</a>
+        </div>
       {% else %}
         <h2 class="card-title fw-bold mb-2">{{ request.user.username }}</h2>
         <p class="card-subtitle text-light small mb-4">{{ request.user.email }}</p>
@@ -17,7 +22,6 @@
           Seller registration
         </a>
       {% endif %}
-
 
 <div class="container mt-2">
   <div class="card mx-auto" style="max-width: auto; ">

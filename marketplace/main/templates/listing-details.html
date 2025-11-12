@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load ratings %}
 {% block content %}
 
 <div class="container mt-5">
@@ -37,22 +38,8 @@
                 <div class="d-flex justify-content-center my-4">
                     <div class="content text-center p-4 border rounded shadow-sm bg-light">
                         <div class="ratings">
-                            <div class="d-flex justify-content-center align-items-baseline mb-2">
-                                <span class="product-rating fw-bold fs-3 text-warning">4.6</span>
-                                <span class="fs-5 text-secondary">/5</span>
-                            </div>
-
                             <div class="stars text-warning mb-2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            </div>
-
-
-                            <div class="rating-text text-muted small">
-                                <span>46 ratings & 15 reviews</span>
+                                {% ratings listing %}
                             </div>
                         </div>
                     </div>
@@ -79,10 +66,7 @@
                             </button>
                         </li>
                         </ul>
-
-                        <!-- Tab Content -->
                         <div class="tab-content" id="paymentTabContent">
-                        <!-- Visa Tab -->
                         <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
                             <div class="mt-4 mx-4 text-center">
                             <h5>Credit Card</h5>
@@ -116,7 +100,7 @@
 </div>
 
 <div class="container mt-2" id="productResponses">
-    <h3 class="mb-2">Responses</h3>
+    <h3 class="mb-2 text-light">Responses</h3>
 
     <div id="productResponses" class="mt-6">
         {% block responses %}

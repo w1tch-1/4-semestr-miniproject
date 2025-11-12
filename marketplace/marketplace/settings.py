@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'cart',
     'listing_manage',
 
+    'star_ratings',
+
     'user',
 
     'allauth',

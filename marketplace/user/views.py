@@ -35,3 +35,18 @@ class UserProfileView(DetailView):
         context = super().get_context_data(**kwargs)
         context['user_listings'] = Listing.objects.filter(user=self.kwargs['pk'])
         return context
+
+
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = [
+        'seller_fullname',
+        'seller_company_name',
+        'seller_email',
+        'profile_picture',
+    ]
+    success_url = '/profile'
+    template_name = 'profile-edit.html'
+
+    def get_object(self):
+        return self.request.user

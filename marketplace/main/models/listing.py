@@ -1,6 +1,7 @@
 from django.db import models
 from main.choices import PriceTypeChoices
 from user.models import User
+from star_ratings.models import Rating
 
 
 class Listing(models.Model):
@@ -15,3 +16,7 @@ class Listing(models.Model):
     pictures = models.ImageField(upload_to='listing_images/')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     telephone_number = models.CharField(max_length=100)
+
+    @property
+    def rating(self):
+        return Rating.objects.for_instance(self)
