@@ -198,6 +198,21 @@ socialaccount = ["oauthlib (>=3.3.0,<4)", "pyjwt[crypto] (>=2.0,<3)", "requests 
 steam = ["python3-openid (>=3.0.8,<4)"]
 
 [[package]]
+name = "django-braces"
+version = "1.17.0"
+description = "Reusable, generic mixins for Django"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django_braces-1.17.0-py3-none-any.whl", hash = "sha256:18c9fe889bc673bddee6110f23a8c57fefe99663c8c683a7c2ac4f8f8743674d"},
+    {file = "django_braces-1.17.0.tar.gz", hash = "sha256:3a6fe630d3d91fef0711bfe1088d14af00c245559f79f6298040ed2b2f757337"},
+]
+
+[package.dependencies]
+Django = ">=2.2"
+
+[[package]]
 name = "django-filter"
 version = "25.2"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -231,6 +246,21 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-model-utils"
+version = "5.0.0"
+description = "Django model mixins and utilities"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "django_model_utils-5.0.0-py3-none-any.whl", hash = "sha256:fec78e6c323d565a221f7c4edc703f4567d7bb1caeafe1acd16a80c5ff82056b"},
+    {file = "django_model_utils-5.0.0.tar.gz", hash = "sha256:041cdd6230d2fbf6cd943e1969318bce762272077f4ecd333ab2263924b4e5eb"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-render-block"
 version = "0.11"
 description = "Render a particular block from a template to a string."
@@ -247,6 +277,24 @@ django = ">=4.2"
 
 [package.extras]
 dev = ["Jinja2 (>=2.8)"]
+
+[[package]]
+name = "django-star-ratings"
+version = "0.9.2"
+description = "A Django app to add star ratings to models."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django-star-ratings-0.9.2.tar.gz", hash = "sha256:7c7f55c1847087b932ca09c2cefb11240510fe384188250d15961024c9c8f2d8"},
+    {file = "django_star_ratings-0.9.2-py2.py3-none-any.whl", hash = "sha256:8789275e11612295379cf5db7aafce43e2cf6d9aea63f4ba762220fe440997f3"},
+]
+
+[package.dependencies]
+django = "*"
+django-braces = "*"
+django-model-utils = "*"
+swapper = "*"
 
 [[package]]
 name = "django-widget-tweaks"
@@ -343,6 +391,18 @@ dev = ["build", "hatch"]
 doc = ["sphinx"]
 
 [[package]]
+name = "swapper"
+version = "1.4.0"
+description = "The unofficial Django swappable models API."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "swapper-1.4.0-py2.py3-none-any.whl", hash = "sha256:57b8378aad234242542fe32dc6e8cff0ed24b63493d20b3c88ee01f894b9345e"},
+    {file = "swapper-1.4.0.tar.gz", hash = "sha256:9e083af114ee0593241a7b877e3e0e7d3a580454f5d59016c667a5563306f8fe"},
+]
+
+[[package]]
 name = "tzdata"
 version = "2025.2"
 description = "Provider of IANA time zone data"
@@ -376,4 +436,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "5c05b662d356d48bc8a9701d5d7014cfb39854c32a5dba81e5b015d72102be25"
+content-hash = "1ee7b6415b9331b17f5cb1129979c413436017e2660ad6ed7db4335e7b5dc689"
