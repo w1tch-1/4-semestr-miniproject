@@ -1,107 +1,134 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
 {% block content %}
+<link rel="stylesheet" href="{% static 'styles/main-page.css' %}">
 
-<div class="page-wrapper">
-
-  <div id="filterSidebar" class="closed p-3 border rounded bg-light">
-  <h5 class="fw-bold mb-3">Filter Listing</h5>
-  <hr>
-
-  <form
-    hx-get="{% url 'index' %}"
-    hx-target="#listingList"
-    hx-swap="outerHtml"
-  >
-    <div class="mb-3">
-      <label for="searchInput" class="form-label">Search</label>
-      <input
-        type="text"
-        id="searchInput"
-        name="search"
-        class="form-control"
-        placeholder="Search products..."
-        hx-get="{% url 'index' %}"
-        hx-target="#listingList"
-        hx-swap="outerHtml"
-        hx-trigger="keyup changed delay:500ms"
-        hx-include="closest form"
-      >
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Category</label>
-      <select class="form-select" name="category" hx-get="{% url 'index' %}" hx-target="#listingList" hx-swap="outerHtml" hx-trigger="change" hx-include="closest form">
-        <option value="">All</option>
-        {% for cat in categories %}
-          <option value="{{ cat.id }}">{{ cat.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="priceRange" class="form-label">Price Range: <span id="priceValue">0</span></label>
-      <input
-        type="range"
-        class="form-range"
-        min="0"
-        max="10000"
-        step="50"
-        id="priceRange"
-        name="price_range"
-        hx-get="{% url 'index' %}"
-        hx-target="#listingList"
-        hx-swap="outerHtml"
-        hx-trigger="change"
-        hx-include="closest form"
-      >
-    </div>
-
-    <input type="hidden" name="is_filter" value="1">
-
-    <button type="submit" class="btn btn-success w-100">Apply Filters</button>
-  </form>
+<div class="top-bar text-center fw-bold">
+    ⚡ Black Friday Up To -60% ⚡
 </div>
 
+<div class="container-fluid mt-3 page-wrapper">
+    <div class="row">
 
-  <div id="mainContent">
-    <button id="toggleSidebar" class="mb-3">☰ Filters</button>
+        <div class="col-12 mb-4">
+            <div id="filterSidebar" class="p-3 border rounded bg-light">
+                <h5 class="fw-bold mb-3">Filter Listing</h5>
+                <hr>
 
-    <div class="card bg-primary text-white shadow-lg border-0">
-      <div class="card-body text-center p-5">
-        <h1 class="fw-bold">Listings</h1>
-        <hr class="border-light opacity-75">
+                <form
+                    hx-get="{% url 'index' %}"
+                    hx-target="#listingList"
+                    hx-swap="outerHtml"
+                >
+                    <div class="row g-3">
 
-        <div id="listingList" class="row mt-4 g-4">
-          {% block listing %}
-            {% for listings in listing %}
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card h-100 shadow-sm border-0">
-                  <a class="text-decoration-none" href="{% url 'listing-detail' listings.id %}">
-                    <div class="ratio ratio-4x3">
-                      <img src="{{ listings.pictures.url }}"
-                           alt="{{ listings.title }}"
-                           class="card-img-top object-fit-cover">
+                        <div class="col-md-4">
+                            <label for="searchInput" class="form-label">Search</label>
+                            <input
+                                type="text"
+                                id="searchInput"
+                                name="search"
+                                class="form-control"
+                                placeholder="Search products..."
+                                hx-get="{% url 'index' %}"
+                                hx-target="#listingList"
+                                hx-swap="outerHtml"
+                                hx-trigger="keyup changed delay:500ms"
+                                hx-include="closest form"
+                            >
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Category</label>
+                            <select
+                                class="form-select"
+                                name="category"
+                                hx-get="{% url 'index' %}"
+                                hx-target="#listingList"
+                                hx-swap="outerHtml"
+                                hx-trigger="change"
+                                hx-include="closest form">
+                                <option value="">All</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="priceRange" class="form-label">Price Range: <span id="priceValue">0</span></label>
+                            <input
+                                type="range"
+                                class="form-range"
+                                min="0"
+                                max="10000"
+                                step="50"
+                                id="priceRange"
+                                name="price_range"
+                                hx-get="{% url 'index' %}"
+                                hx-target="#listingList"
+                                hx-swap="outerHtml"
+                                hx-trigger="change"
+                                hx-include="closest form"
+                            >
+                        </div>
+
                     </div>
-                    <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title fw-semibold text-dark">{{ listings.title }}</h5>
-                        <h6 class="card-title fw-semibold text-dark">{{ listings.price }}$</h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            {% endfor %}
-          {% endblock %}
+
+                    <input type="hidden" name="is_filter" value="1">
+                    <button type="submit" class="btn btn-success w-100 mt-3">Apply Filters</button>
+                </form>
+            </div>
         </div>
 
-      </div>
-    </div>
-  </div>
 
+        <div class="col-12">
+            <div class="autoscroll-x-wrapper">
+                <div class="autoscroll-x-content">
+                    {% for listings in listing|slice:":12" %}
+                    <div class="item">
+                        <img src="{{ listings.pictures.url }}" alt="{{ listings.title }}">
+                        <p class="title">{{ listings.title }}</p>
+                    </div>
+                    {% endfor %}
+
+                    {% for listings in listing|slice:":12" %}
+                    <div class="item">
+                        <img src="{{ listings.pictures.url }}" alt="{{ listings.title }}">
+                        <p class="title">{{ listings.title }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <h4 class="fw-bold mb-3">Listings</h4>
+
+            <div id="listingList" class="row mt-4 g-4">
+                {% block listing %}
+                {% for listings in listing %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card h-100">
+
+                        <a href="{% url 'listing-detail' listings.id %}" class="text-decoration-none">
+
+                            <img src="{{ listings.pictures.url }}" alt="{{ listings.title }}">
+
+                            <p class="title text-center">{{ listings.title }}</p>
+
+                            <p class="price text-center">{{ listings.price }}$</p>
+
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <script src="{% static 'js/sidebar.js' %}"></script>
-
-<link rel="stylesheet" href="{% static 'styles/sidebar.css' %}">
-<link rel="stylesheet" href="{% static 'styles/main-page.css' %}">
 {% endblock %}

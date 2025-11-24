@@ -1,6 +1,7 @@
 from .models import CartItem
 from main.models import Listing
-from django.views.generic.detail import DetailView
+from django.contrib.contenttypes.models import ContentType
+from star_ratings.models import Rating
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, CreateView
 from django.shortcuts import redirect, get_object_or_404
@@ -22,7 +23,7 @@ class CartAddView(CreateView):
         cart_item.quantity += 1
         cart_item.save()
         return redirect('user:profile')
-    
+
 
 class CartRemoveView(DeleteView):
     model = CartItem
