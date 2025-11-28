@@ -46,18 +46,16 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
+      <a href="/listing-create" type="button" class="btn shadow-lg fw-bold fs-4 " style="background-color: #1E1E2F; color: #E5E5E5;">
+        Place an ad
+      </a>
       {% else %}
         <img src="/static/img/offers.png" alt="Special Offers" class="img-fluid" style="width: 150px; max-width: 100%;">
         <h2 class="mb-2 fs-4">🎁 Still have treasures in the basement?</h2>
         <h4 class="text-muted mb-2 fs-5">Clear space and earn some cash!</h4>
         <h5 class="mb-1 fs-6">Sell your old favorites for free – quick and easy.</h5>
         <h5 class="mb-3 fs-6">Manage all your listings in one place.</h5>
-      {% endif %}
-      <a href="/listing-create" type="button" class="btn shadow-lg fw-bold fs-4 " style="background-color: #1E1E2F; color: #E5E5E5;">
-        Place an ad
-      </a>
-      {% else %}
-        <h2 class="mb-2 fs-4">Register a seller account to make your offers.</h2>
       {% endif %}
 
     </div>
